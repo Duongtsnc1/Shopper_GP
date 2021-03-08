@@ -29,6 +29,7 @@ namespace ShopProject.Areas.Administrator.Controllers
                 var model = dbPro.Products.ToList();
                 if (!string.IsNullOrEmpty(name))
                 {
+                    
                     model = model.Where(p => p.proName.Contains(name)).ToList();
                 }
                 return View(model);

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ShopProject.Areas.Administrator.Models.Order>
+
+@{
+    ViewBag.Title = "Hãng sản xuất";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hãng sản xuất</h2>
+<div class="text-warning">
+    @ViewBag.PdcError
+</div>
+<hr />
+<div>
+    <div class="panel panel-default">
+        
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive table-bordered">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng </th>
+                            <th>Ngày</th>
+                            <th>Tổng tiền</th>
+                            <th>Ghi chú</th>
+                            <th>Trạng thái</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var detail = item.OrderDetails.ToList();
+                            var total = 0;
+                            foreach(var jtem in detail)
+                            {
+                                total += Int32.Parse(jtem.ordtsThanhTien);
+                            }
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.orderID)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Customer.cusFullName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.orderDateTime)</td>
+                            <td>@total VND</td>
+                            <td>@Html.DisplayFor(modelItem => item.orderMessage)</td>
+                            <td>@Html.DisplayFor(modelItem => item.orderStatus)</td>
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>

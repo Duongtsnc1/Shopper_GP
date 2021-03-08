@@ -22,8 +22,8 @@ namespace ShopProject.Areas.Shopper.Models
 
         public string orderMessage { get; set; }
 
-        [StringLength(50)]
-        public string orderDateTime { get; set; }
+        
+        public DateTime orderDateTime { get; set; }
 
         [StringLength(50)]
         public string orderStatus { get; set; }

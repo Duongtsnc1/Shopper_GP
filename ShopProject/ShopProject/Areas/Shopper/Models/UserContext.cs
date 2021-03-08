@@ -56,9 +56,9 @@ namespace ShopProject.Areas.Shopper.Models
                 .Property(e => e.cusPhone)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Order>()
-                .Property(e => e.orderDateTime)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Order>()
+            //    .Property(e => e.orderDateTime)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Order>()
                 .HasMany(e => e.OrderDetails)

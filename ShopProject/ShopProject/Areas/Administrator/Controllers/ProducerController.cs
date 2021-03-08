@@ -9,7 +9,7 @@ namespace ShopProject.Areas.Administrator.Controllers
 {
     public class ProducerController : Controller
     {
-        Models.AdminContext dbPdc = new Models.AdminContext();
+        Models.AdminContext dbPdc = new Models.AdminContext( );
         //
         // GET: /Administrator/Producer/
         [HandleError]

@@ -17,8 +17,7 @@ namespace ShopProject.Areas.Administrator
             context.MapRoute(
                 name: "Administrator_default",
                 url: "Administrator/{controller}/{action}/{id}",
-                defaults: new {action = "Login", id = UrlParameter.Optional }
-                
+                defaults: new {action = "Index", id = UrlParameter.Optional }                
             );
         }
         

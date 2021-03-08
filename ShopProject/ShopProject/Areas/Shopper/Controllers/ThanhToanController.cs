@@ -54,11 +54,11 @@ namespace ShopProject.Areas.Shopper.Controllers
             List<CartItem> giohang = Session["giohang"] as List<CartItem>;
             //thêm order mới
             Order newOrder = new Order();
-            string newIDOrder = (Int32.Parse(db.Orders.OrderByDescending(p => p.orderDateTime).FirstOrDefault().orderID.Replace("HD", "")) + 1).ToString();
+            string newIDOrder = (db.Orders.Count() + 1).ToString();
             newOrder.orderID = "HD" + newIDOrder;
             newOrder.cusPhone = phone;
             newOrder.orderMessage = note;
-            newOrder.orderDateTime = DateTime.Now.ToString();
+            newOrder.orderDateTime = DateTime.Now;
             newOrder.orderStatus = "0";
             db.Orders.Add(newOrder);
             db.SaveChanges();

@@ -54,7 +54,7 @@ Create Table Orders(
 	orderID varchar(20) primary key,
 	cusPhone varchar(20) FOREIGN KEY REFERENCES Customers(cusPhone),
 	orderMessage Nvarchar(MAX),
-	orderDateTime varchar(50),
+	orderDateTime datetime,
 	orderStatus Nvarchar(50)
 )
 go
@@ -151,9 +151,9 @@ Insert into Comments values('AK001', N'đã đánh giá AK001')
 Insert into Comments values('AT001', N'đã đánh giá AT001')
 Insert into Comments values('AT002', N'đã đánh giá AT002')
 Insert into Comments values('AT003', N'đã đánh giá AT003')
---Insert table Orders
-Insert into Orders values('HD1', '01234567891', 'Size: M', '11/20/2017 10:40:30 AM', N'0')
---Insert table OrderDetails
-Insert into OrderDetails values('HD1', 'AT001', 2, '160000')
-Insert into OrderDetails values('HD1', 'AT002', 1, '130000')
-Insert into OrderDetails values('HD1', 'AT003', 1, '170000')
+----Insert table Orders
+--Insert into Orders values('HD1', '01234567891', 'Size: M', '11/20/2017 10:40:30 AM', N'0')
+----Insert table OrderDetails
+--Insert into OrderDetails values('HD1', 'AT001', 2, '160000')
+--Insert into OrderDetails values('HD1', 'AT002', 1, '130000')
+--Insert into OrderDetails values('HD1', 'AT003', 1, '170000')
