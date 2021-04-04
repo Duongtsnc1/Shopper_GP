@@ -530,6 +530,7 @@
     <Content Include="Areas\Administrator\Views\Predict\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Predict\TestDLL.cshtml" />
     <Content Include="Areas\Administrator\Content\data\a.in" />
+    <Content Include="Areas\Administrator\Views\Predict\Index1.cshtml" />
     <None Include="Properties\PublishProfiles\ShopperMVC.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Image\arr.png" />
@@ -600,12 +601,14 @@
     <Compile Include="Areas\Administrator\Models\Category.cs" />
     <Compile Include="Areas\Administrator\Models\Comment.cs" />
     <Compile Include="Areas\Administrator\Models\Customer.cs" />
+    <Compile Include="Areas\Administrator\Models\GP.cs" />
     <Compile Include="Areas\Administrator\Models\Order.cs" />
     <Compile Include="Areas\Administrator\Models\OrderDetail.cs" />
     <Compile Include="Areas\Administrator\Models\Producer.cs" />
     <Compile Include="Areas\Administrator\Models\Product.cs" />
     <Compile Include="Areas\Administrator\Models\ProductType.cs" />
     <Compile Include="Areas\Administrator\Models\Rate.cs" />
+    <Compile Include="Areas\Administrator\Models\tranning_model.cs" />
     <Compile Include="Areas\Administrator\Sales\Sale.cs" />
     <Compile Include="Areas\Shopper\Controllers\GioHangController.cs" />
     <Compile Include="Areas\Shopper\Controllers\HomeController.cs" />

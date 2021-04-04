@@ -1,0 +1,131 @@
+﻿@using ShopProject.Areas.Administrator.Models;
+@using ShopProject.Areas.Administrator.Sales;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+    Product item = ViewBag.Product;
+    ShopProject.Repository.ProductDAO proDAO = new ShopProject.Repository.ProductDAO();
+    var Sale = ViewBag.Detail;
+}
+
+<h2>Dự đoán xu hướng mua hàng</h2>
+<div class="text-warning">
+    @ViewBag.PdcError
+</div>
+<hr />
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="height:50px;">
+            <div class="form-group input-group navbar-right">
+                @using (Ajax.BeginForm("Index1", "Predict", new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
+                {
+                    <input type="search" name="ID" class="form-control" style="width:300px" placeholder="Nhập mã sản phẩm..." />
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                }
+            </div>
+        </div>
+        <div class="panel-body" style="width:100%;overflow:auto;">
+            <div class="table-responsive table-bordered">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Hãng sản xuất</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Kích cỡ</th>
+                            <th>Đơn giá</th>
+                            <th>Chiết khấu (%)</th>
+                            <th>Hình ảnh</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.Product == null)
+                        {
+                            <tr>
+                                <td>#</td>
+                                <td>#</td>
+                                <td>#</td>
+                                <td>#</td>
+                                <td>#</td>
+                                <td>#</td>
+                                <td>#</td>
+                                <td>#</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.proID)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ProductType.typeName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Producer.pdcName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.proName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.proSize)</td>
+                                <td>@proDAO.formatNumber(item.proPrice)</td>
+                                <td>@Html.DisplayFor(modelItem => item.proDiscount)</td>
+                                <td><img src="@item.proPhoto" width="50" height="50" /></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <br />
+
+            @if (ViewBag.Detail != null)
+            {
+                <p style="color:red;">* Doanh số bán hàng theo ngày </p>
+                <div class="table-responsive table-bordered">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var jtem in Sale)
+                                {
+                                    <th>@jtem.orderDateTime</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                @foreach (var jtem in Sale)
+                                {
+                                    <td>@jtem.totalQuantity</td>
+                                }
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- /.table-responsive -->
+                <br />
+                <p style="color:red;">* Dự đoán(mang tính chất tham khảo) cho 7 ngày tiếp theo  </p>
+                <div id="predict" style="padding-left:300px">
+                    <form action="/Administrator/Predict/Index1" method="get">
+
+                        <input type="radio" id="method1" name="method" value="1" checked>
+                        <label for="method1"> Phương pháp 1</label><br>
+                        <input type="radio" id="method2" name="method" value="2">
+                        <label for="method2"> Phương pháp 2</label><br>
+                        <input type="radio" id="method2" name="method" value="3">
+                        <label for="method3"> Phương pháp 3</label><br><br>
+                        @*<input type="radio" id="method4" name="method" value="3">
+                            <label for="method4"> Phương pháp 4</label><br><br>*@
+                        <input type="submit" name="ID" value="@ViewBag.ID" style="position:absolute; transform:translate(-50%,-50%); bottom:15%; left:45%;">
+                    </form>
+                    <br />
+                    <p id="Result" style="position:absolute; transform:translate(-50%,-50%); bottom:14.5%; left:60%;">@ViewBag.Result </p>
+                </div>
+            }
+        </div>
+        <!-- /.panel-body -->
+    </div>
+
+    <!-- /.panel -->
+</div>
+

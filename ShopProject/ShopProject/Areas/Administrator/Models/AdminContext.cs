@@ -22,6 +22,8 @@ namespace ShopProject.Areas.Administrator.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Rate> Rates { get; set; }
+        public virtual DbSet<GP> GPs { get; set; }
+        public virtual DbSet<tranning_model> tranning_models { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -44,6 +46,15 @@ namespace ShopProject.Areas.Administrator.Models
             modelBuilder.Entity<Customer>()
                 .Property(e => e.cusEmail)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<GP>()
+               .Property(e => e.ID_GP)
+               .IsUnicode(false);
+
+            modelBuilder.Entity<GP>()
+                .HasMany(e => e.tranning_model)
+                .WithRequired(e => e.GP)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.orderID)
@@ -109,6 +120,18 @@ namespace ShopProject.Areas.Administrator.Models
 
             modelBuilder.Entity<Rate>()
                 .Property(e => e.proID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tranning_model>()
+            .Property(e => e.ID_GP)
+            .IsUnicode(false);
+
+            modelBuilder.Entity<tranning_model>()
+                .Property(e => e.proID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tranning_model>()
+                .Property(e => e.model)
                 .IsUnicode(false);
         }
     }

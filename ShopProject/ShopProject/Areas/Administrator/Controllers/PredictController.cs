@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using ShopProject.Areas.Administrator.Sales;
 using GP;
 using System.IO;
-
+using ShopProject.Areas.Administrator.Models;
 
 namespace ShopProject.Areas.Administrator.Controllers
 {
@@ -106,14 +106,27 @@ namespace ShopProject.Areas.Administrator.Controllers
                 }
                 if (method != "")
                 {
+                    
                     List<double> Weeks = makeListWeekbyWeek(List);
-                    string[][] tranning = MakeTranning(Weeks);
-                    string[][] result=MainGP.Run(ID,tranning,method);
-                    string[] model = new string[result.Length];
-                    for(int i=0;i< result.Length; i++)
-                    {
-                        model[i] = result[i][0];
+                    if (dbPre.tranning_models.SingleOrDefault(s => s.ID_GP == ("GP" + method) && s.proID == ID) == null)
+                    {                        
+                        string[][] tranning = MakeTranning(Weeks);
+                        string[][] result = MainGP.Run(ID, tranning, method);
+                        tranning_model t_model = new tranning_model();
+                        int result_length = result.Length;
+                        string model_ = "";
+                        for (int i = 0; i < result_length; i++)
+                        {
+                            model_ += result[i][0] + "@";
+                        }
+                        t_model.ID_GP = "GP" + method;
+                        t_model.proID = ID;
+                        t_model.model = model_.Remove(model_.Length-1);
+                        dbPre.tranning_models.Add(t_model);
+                        dbPre.SaveChanges();
                     }
+
+                    string[] model = dbPre.tranning_models.SingleOrDefault(s => s.ID_GP == ("GP" + method) && s.proID == ID).model.Split('@');
                     string[] input = new string[8];
                     int index = 0;
                     for(int i=Weeks.Count - 8; i < Weeks.Count; i++)
@@ -122,7 +135,57 @@ namespace ShopProject.Areas.Administrator.Controllers
                     }
                     PredictGP.Predict PR = new PredictGP.Predict();
                    
-                    ViewBag.Predict = PR.PredictTwo(model, input); 
+                    ViewBag.Predict =  PR.PredictTwo(model, input) +" (phương pháp "+ method + " )"; 
+                }
+                return View();
+            }
+        }
+        [HandleError]
+        public ActionResult Index1(string error, string ID, string method = "")
+        {
+            if (Session["accname"] == null)
+            {
+                Session["accname"] = null;
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+
+                ViewBag.PreError = error;
+                if (!string.IsNullOrEmpty(ID))
+                {
+                    ViewBag.Product = dbPre.Products.SingleOrDefault(s => s.proID == ID);
+                    if (ViewBag.Product != null)
+                    {
+                        List<Sale> ListS = ListDayByDay(ID);
+                        List = ListS;
+                        ViewBag.ID = ID;
+
+                    }
+
+                    if (List != null)
+                    {
+                        ViewBag.Detail = List;
+                    }
+                }
+                if (method != "")
+                {
+                    List<double> Weeks = makeListWeekbyWeek(List);
+                    string[][] tranning = MakeTranning(Weeks);
+                    string[][] result = MainGP.Run(ID, tranning, method);
+                    int result_length = result.Length;
+                    string model = "";                    
+                    for (int i = 0; i < result_length; i++)
+                    {
+                        model += result[i][0] + "@";
+                    }
+                    tranning_model t_model = new tranning_model();
+                    t_model.ID_GP = "GP"+method;
+                    t_model.proID = ID;
+                    t_model.model = model.Remove(model.Length - 1);
+                    dbPre.tranning_models.Add(t_model);
+                    dbPre.SaveChanges();
+                    ViewBag.Result = "tranning thành công phương pháp " +method;
                 }
                 return View();
             }
