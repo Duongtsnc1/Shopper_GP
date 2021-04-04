@@ -49,8 +49,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="GP">
-      <HintPath>..\..\..\..\TestGP\TestGP\bin\GP.dll</HintPath>
+    <Reference Include="GP, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\GP.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.AWT.WinForms, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.AWT.WinForms.dll</HintPath>
@@ -527,6 +528,8 @@
     <Content Include="Areas\Shopper\Views\ThanhToan\HoaDon.cshtml" />
     <Content Include="Areas\Administrator\Views\Oders\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Predict\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Predict\TestDLL.cshtml" />
+    <Content Include="Areas\Administrator\Content\data\a.in" />
     <None Include="Properties\PublishProfiles\ShopperMVC.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Image\arr.png" />
@@ -697,6 +700,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Views\Member\" />
+    <Folder Include="Areas\Result\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>

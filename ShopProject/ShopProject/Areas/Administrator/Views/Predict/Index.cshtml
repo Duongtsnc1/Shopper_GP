@@ -8,7 +8,7 @@
     var Sale = ViewBag.Detail;
 }
 
-<h2>Hãng sản xuất</h2>
+<h2>Dự đoán xu hướng mua hàng</h2>
 <div class="text-warning">
     @ViewBag.PdcError
 </div>
@@ -75,36 +75,52 @@
                 </table>
             </div>
             <br />
-            
+
             @if (ViewBag.Detail != null)
             {
-            <p style="color:red;">* Doanh số bán hàng theo ngày </p>
-            <div class="table-responsive table-bordered">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            @foreach (var jtem in Sale)
-                            {
-                                <th>@jtem.orderDateTime</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
+                <p style="color:red;">* Doanh số bán hàng theo ngày </p>
+                <div class="table-responsive table-bordered">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var jtem in Sale)
+                                {
+                                    <th>@jtem.orderDateTime</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        <tr>
-                            @foreach (var jtem in Sale)
-                            {
-                                <td>@jtem.totalQuantity</td>
-                            }
-                        </tr>
+                            <tr>
+                                @foreach (var jtem in Sale)
+                                {
+                                    <td>@jtem.totalQuantity</td>
+                                }
+                            </tr>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-            </div>
-            <!-- /.table-responsive -->
+                </div>
+                <!-- /.table-responsive -->
                 <br />
                 <p style="color:red;">* Dự đoán(mang tính chất tham khảo) cho 7 ngày tiếp theo  </p>
+                <div id="predict" style="padding-left:300px">
+                    <form action="/Administrator/Predict/Index" method="get">
+
+                        <input type="radio" id="method1" name="method" value="1" checked>
+                        <label for="method1"> Phương pháp 1</label><br>
+                        <input type="radio" id="method2" name="method" value="2">
+                        <label for="method2"> Phương pháp 2</label><br>
+                        <input type="radio" id="method2" name="method" value="3">
+                        <label for="method3"> Phương pháp 3</label><br><br>
+                        @*<input type="radio" id="method4" name="method" value="3">
+                        <label for="method4"> Phương pháp 4</label><br><br>*@
+                        <input type="submit" name="ID" value="@ViewBag.ID" style="position:absolute; transform:translate(-50%,-50%); bottom:15%; left:45%;">
+                    </form>
+                    <br />
+                    <p id="Result" style="position:absolute; transform:translate(-50%,-50%); bottom:14.5%; left:60%;">kết quả dự đoán : @ViewBag.Predict</p>
+                </div>
             }
         </div>
         <!-- /.panel-body -->
