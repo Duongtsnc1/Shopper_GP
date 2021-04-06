@@ -79,6 +79,10 @@ namespace ShopProject.Areas.Administrator.Controllers
         [HandleError]
         public ActionResult Index(string error,string ID,string method="")
         {
+            if (ID != null && ID.Split('-').Length>1)
+            {
+                ID = ID.Split('-')[1];
+            }
             if (Session["accname"] == null)
             {
                 Session["accname"] = null;
@@ -135,7 +139,7 @@ namespace ShopProject.Areas.Administrator.Controllers
                     }
                     PredictGP.Predict PR = new PredictGP.Predict();
                    
-                    ViewBag.Predict =  PR.PredictTwo(model, input) +" (phương pháp "+ method + " )"; 
+                    ViewBag.Predict =  PR.PredictTwo(model, input); 
                 }
                 return View();
             }
@@ -143,6 +147,10 @@ namespace ShopProject.Areas.Administrator.Controllers
         [HandleError]
         public ActionResult Index1(string error, string ID, string method = "")
         {
+            if (ID != null && ID.Split('-').Length > 1)
+            {
+                ID = ID.Split('-')[1];
+            }
             if (Session["accname"] == null)
             {
                 Session["accname"] = null;
@@ -185,7 +193,7 @@ namespace ShopProject.Areas.Administrator.Controllers
                     t_model.model = model.Remove(model.Length - 1);
                     dbPre.tranning_models.Add(t_model);
                     dbPre.SaveChanges();
-                    ViewBag.Result = "tranning thành công phương pháp " +method;
+                    ViewBag.Result = "Huấn luyện thành công phương pháp " +method;
                 }
                 return View();
             }

@@ -1,14 +1,19 @@
 ﻿@using ShopProject.Areas.Administrator.Models;
 @using ShopProject.Areas.Administrator.Sales;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Cập nhật mô hình mới";
     Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
     Product item = ViewBag.Product;
     ShopProject.Repository.ProductDAO proDAO = new ShopProject.Repository.ProductDAO();
-    var Sale = ViewBag.Detail;
+    List<Sale> Sale =(List<Sale>)ViewBag.Detail;
+    if (ViewBag.Detail != null)
+    { 
+        Sale.Reverse();
+    }
 }
+    
 
-<h2>Dự đoán xu hướng mua hàng</h2>
+<h2>Cập nhật mô hình mới </h2>
 <div class="text-warning">
     @ViewBag.PdcError
 </div>
@@ -104,7 +109,7 @@
                 </div>
                 <!-- /.table-responsive -->
                 <br />
-                <p style="color:red;">* Dự đoán(mang tính chất tham khảo) cho 7 ngày tiếp theo  </p>
+                <p style="color:red;">* Huấn luyện dựa trên dữ liệu doanh số bán hàng thực tế của cửa hàng </p>
                 <div id="predict" style="padding-left:300px">
                     <form action="/Administrator/Predict/Index1" method="get">
 
@@ -116,10 +121,10 @@
                         <label for="method3"> Phương pháp 3</label><br><br>
                         @*<input type="radio" id="method4" name="method" value="3">
                             <label for="method4"> Phương pháp 4</label><br><br>*@
-                        <input type="submit" name="ID" value="@ViewBag.ID" style="position:absolute; transform:translate(-50%,-50%); bottom:15%; left:45%;">
+                        <input type="submit" name="ID" value="Huấn luyện-@ViewBag.ID" style="position:absolute; transform:translate(-50%,-50%); bottom:15%; left:45%;">
                     </form>
                     <br />
-                    <p id="Result" style="position:absolute; transform:translate(-50%,-50%); bottom:14.5%; left:60%;">@ViewBag.Result </p>
+                    <p id="Result" style="position:absolute; transform:translate(-50%,-50%); bottom:14.5%; left:65%;"><strong>Huấn luyện thành công phương pháp 2</strong></p>
                 </div>
             }
         </div>
